@@ -63,7 +63,10 @@
     </style>
 </head>
 <body>
-    <div id="grid" class="grid p-4">
+
+    <canvas id="canvas" height="900" width="900"></canvas>
+
+    <!-- <div id="grid" class="grid p-4">
         <div class="grid-item"><img src="images/card5.png"/></div>
         <div class="grid-item"><img src="images/card9.png"/></div>
         <div class="grid-item"><img src="images/card8.png"/></div>
@@ -81,143 +84,219 @@
         <div class="grid-item"><img src="images/card15.png"/></div>
     </div>
 
-    <div id="dim-bg"></div>
+    <div id="dim-bg"></div> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" integrity="sha512-aNMyYYxdIxIaot0Y1/PLuEu3eipGCmsEUBrUq+7aVyPGMFH8z0eTP0tkqAvv34fzN6z+201d3T8HPb1svWSKHQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+    
     <script>
-        var grid = document.getElementById('grid');
-        var bg = document.getElementById('dim-bg');
-        var canvas = document.createElement("canvas");
-        const ctx = canvas.getContext('2d');
-        var style = document.createElement("style");
+
+        var canvas = document.getElementById("canvas");
+
+        canvas.width = document.documentElement.clientWidth;
+        canvas.height = document.documentElement.clientHeight;
+
+        var ctx = canvas.getContext("2d");
+
+        var images = [
+            "images/card5.png",
+            "images/card9.png",
+            "images/card8.png",
+            "images/card12.png",
+            "images/card1.png",
+            "images/card2.png",
+            "images/card3.png",
+            "images/card4.png",
+            "images/card6.png",
+            "images/card7.png",
+            "images/card10.png",
+            "images/card11.png",
+            "images/card13.png",
+            "images/card14.png",
+            "images/card15.png",
+        ];
 
         var gap = 76;
         var width = 380;
-        var itemClass = ".grid-item";
-        var gridDimensions = grid.getBoundingClientRect();
         var colIndex = 0;
-        // var rowIndex = 0;
-        var colCount = Math.floor(gridDimensions.width / (width + gap));
+        var colCount = Math.floor(canvas.width / (width + gap));
         var rowOffsets = Array(colCount).fill(0);
-        var gridWidth = colCount * (width + gap) - gap;
-        grid.style.width = gridWidth + "px";
 
-        grid.querySelectorAll(itemClass).forEach((item, i) => {
-            var left = (colIndex % colCount) * (width + gap) + "px";
-            var top = rowOffsets[colIndex % colCount] + "px";
+        var loadedImages = [];
 
-            item.dataset.left = left;
-            item.dataset.top = top;
+        images.forEach(image => {
+            const img = new Image();
 
-            item.style.left = item.dataset.left;
-            item.style.top = item.dataset.top;
+            img.addEventListener("load", function(e) {
 
-            // item.style.left = (colIndex % colCount) * (width + gap) / gridWidth * 100 + "%";
-            // item.style.top = rowOffsets[colIndex % colCount] + "px";
-            var itemDimensions = item.getBoundingClientRect();
-            rowOffsets[colIndex % colCount] += itemDimensions.height + gap;
-            colIndex++;
+                var left = (colIndex % colCount) * (width + gap);
+                var top = rowOffsets[colIndex % colCount];
+                var height = (this.height / this.width) * width;
+                
+                rowOffsets[colIndex % colCount] += height + gap;
+                colIndex++;
 
-            var img = item.querySelector("img");
+                loadedImages.push({
+                    img, left, top, width, height,
+                }); 
 
-            // Set canvas size to match image dimensions
-            canvas.width = img.width;
-            canvas.height = img.height;
-
-            // Draw the image on the canvas
-            ctx.drawImage(img, 0, 0);
-
-            // Get image pixel data
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-
-            // Count colors
-            const colorCounts = {};
-            let maxCount = 0;
-            let mostUsedColor = '';
-
-            for (let i = 0; i < imageData.length; i += 4) {
-                const r = imageData[i];
-                const g = imageData[i + 1];
-                const b = imageData[i + 2];
-                const a = imageData[i + 3];
-
-                // Skip transparent pixels
-                if (a === 0) continue;
-
-                const color = `rgba(${r},${g},${b}, 0.3)`;
-                colorCounts[color] = (colorCounts[color] || 0) + 1;
-
-                if (colorCounts[color] > maxCount) {
-                    maxCount = colorCounts[color];
-                    mostUsedColor = color;
+                if (loadedImages.length === images.length) {
+                    loadedImages.forEach(x => {
+                        ctx.drawImage(x.img, x.left, x.top, x.width, x.height);
+                    });
                 }
-            }
+                console.log(this.width, this.height, height)
+                // ctx.drawImage(img, left, top, width, height);
 
-            style.innerText += `.grid-item:hover:nth-child(${i + 1}) { box-shadow: 0 30px 60px 0 ${mostUsedColor}; }\n`;
-            console.log(mostUsedColor);
-        });
-
-        document.body.append(style);
-
-        var animation;
-
-        grid.addEventListener("click", function (e) {
-            var el = e.target;
-
-            while (!el.classList.contains("grid-item") && el.tagName != "BODY") el = el.parentElement;
-
-            if (el.classList.contains("grid-item")) {
-
-                var elDimensions = el.getBoundingClientRect();
-
-                var top = (document.documentElement.clientHeight / 2) - (elDimensions.height / 2) - gridDimensions.y + window.scrollY;
-                var left = (document.documentElement.clientWidth / 2) - (width / 2) - ((document.documentElement.clientWidth - grid.clientWidth) / 2) + window.scrollX;
-
-                animation = anime({
-                    targets: el,
-                    easing: 'spring(1, 320, 40, 0)',
-                    top: top,
-                    left: left,
-                    scale: 2,
-                    zIndex: [1000, 1000],
-                    duration: 500,
-                    
-                });
-
-                el.classList.add("active");
-                document.body.classList.add("active");
-            }
-        });
-
-        bg.addEventListener("click", function (e) {
-            var el = document.querySelector(".grid-item.active");
-
-            animation = anime({
-                targets: el,
-                easing: 'spring(1, 320, 40, 0)',
-                top: el.dataset.top,
-                left: el.dataset.left,
-                scale: 1,
-                zIndex: [1000, 1000],
-                duration: 500,
             });
 
-            animation.complete = (ani) => ani.animatables.forEach(x => {
-                x.target.style.zIndex = 10;
-                el.classList.remove("active")
-                
-            })
-            
-            // animation?.seek(0);
-            
-            // animation?.reverse();
-            // if (animation.changeCompleted) {
-            //     animation?.restart();
-            // }
-
-            document.body.classList.remove("active");
+            img.src = image;
         });
+
+        
+
+
+
+
+
+
+
+
+        // var grid = document.getElementById('grid');
+        // var bg = document.getElementById('dim-bg');
+        // var canvas = document.createElement("canvas");
+        // const ctx = canvas.getContext('2d');
+        // var style = document.createElement("style");
+
+        // var gap = 76;
+        // var width = 380;
+        // var itemClass = ".grid-item";
+        // var gridDimensions = grid.getBoundingClientRect();
+        // var colIndex = 0;
+        // // var rowIndex = 0;
+        // var colCount = Math.floor(gridDimensions.width / (width + gap));
+        // var rowOffsets = Array(colCount).fill(0);
+        // var gridWidth = colCount * (width + gap) - gap;
+        // grid.style.width = gridWidth + "px";
+
+        // grid.querySelectorAll(itemClass).forEach((item, i) => {
+        //     return;
+        //     var left = (colIndex % colCount) * (width + gap) + "px";
+        //     var top = rowOffsets[colIndex % colCount] + "px";
+
+        //     item.dataset.left = left;
+        //     item.dataset.top = top;
+
+        //     item.style.left = item.dataset.left;
+        //     item.style.top = item.dataset.top;
+
+        //     // item.style.left = (colIndex % colCount) * (width + gap) / gridWidth * 100 + "%";
+        //     // item.style.top = rowOffsets[colIndex % colCount] + "px";
+        //     var itemDimensions = item.getBoundingClientRect();
+        //     rowOffsets[colIndex % colCount] += itemDimensions.height + gap;
+        //     colIndex++;
+
+        //     var img = item.querySelector("img");
+
+        //     // Set canvas size to match image dimensions
+        //     canvas.width = img.width;
+        //     canvas.height = img.height;
+
+        //     // Draw the image on the canvas
+        //     ctx.drawImage(img, 0, 0);
+
+        //     // Get image pixel data
+        //     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+        //     // Count colors
+        //     const colorCounts = {};
+        //     let maxCount = 0;
+        //     let mostUsedColor = '';
+
+        //     for (let i = 0; i < imageData.length; i += 4) {
+        //         const r = imageData[i];
+        //         const g = imageData[i + 1];
+        //         const b = imageData[i + 2];
+        //         const a = imageData[i + 3];
+
+        //         // Skip transparent pixels
+        //         if (a === 0) continue;
+
+        //         const color = `rgba(${r},${g},${b}, 0.3)`;
+        //         colorCounts[color] = (colorCounts[color] || 0) + 1;
+
+        //         if (colorCounts[color] > maxCount) {
+        //             maxCount = colorCounts[color];
+        //             mostUsedColor = color;
+        //         }
+        //     }
+
+        //     style.innerText += `.grid-item:hover:nth-child(${i + 1}) { box-shadow: 0 30px 60px 0 ${mostUsedColor}; }\n`;
+        //     console.log(mostUsedColor);
+        // });
+
+        // // document.body.append(style);
+
+        // var animation;
+
+        // grid.addEventListener("click", function (e) {
+        //     return;
+        //     var el = e.target;
+
+        //     while (!el.classList.contains("grid-item") && el.tagName != "BODY") el = el.parentElement;
+
+        //     if (el.classList.contains("grid-item")) {
+
+        //         var elDimensions = el.getBoundingClientRect();
+
+        //         var top = (document.documentElement.clientHeight / 2) - (elDimensions.height / 2) - gridDimensions.y + window.scrollY;
+        //         var left = (document.documentElement.clientWidth / 2) - (width / 2) - ((document.documentElement.clientWidth - grid.clientWidth) / 2) + window.scrollX;
+
+        //         animation = anime({
+        //             targets: el,
+        //             easing: 'spring(1, 320, 40, 0)',
+        //             top: top,
+        //             left: left,
+        //             scale: 2,
+        //             zIndex: [1000, 1000],
+        //             duration: 500,
+                    
+        //         });
+
+        //         el.classList.add("active");
+        //         document.body.classList.add("active");
+        //     }
+        // });
+
+        // bg.addEventListener("click", function (e) {
+        //     return;
+        //     var el = document.querySelector(".grid-item.active");
+
+        //     animation = anime({
+        //         targets: el,
+        //         easing: 'spring(1, 320, 40, 0)',
+        //         top: el.dataset.top,
+        //         left: el.dataset.left,
+        //         scale: 1,
+        //         zIndex: [1000, 1000],
+        //         duration: 500,
+        //     });
+
+        //     animation.complete = (ani) => ani.animatables.forEach(x => {
+        //         x.target.style.zIndex = 10;
+        //         el.classList.remove("active")
+                
+        //     })
+            
+        //     // animation?.seek(0);
+            
+        //     // animation?.reverse();
+        //     // if (animation.changeCompleted) {
+        //     //     animation?.restart();
+        //     // }
+
+        //     document.body.classList.remove("active");
+        // });
 
     </script>
 </body>
