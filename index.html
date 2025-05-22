@@ -3,222 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <style>
-        body {
-            margin: 0;
-        }
-
-        body.active {
-            overflow: hidden;
-        }
-
-        .grid {
-            margin: 50px auto;
-            position: relative;
-        }
-
-        .grid-item {
-            border-radius: 6px;
-            overflow: hidden;
-            position: absolute;
-            display: flex;
-        }
-
-        .grid-item:not(.active) {
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-        }
-
-        .grid-item:hover:not(.active) {
-            transform: translateY(-10px);
-            cursor: pointer;
-        }
-
-        .grid-item.active {
-
-        }
-
-        .grid-item img {
-            width: 380px;
-        }
-
-        #dim-bg {
-            background-color: black;
-            opacity: 0.3;
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            z-index: 10;
-            display: none;
-            cursor: pointer;
-        }
-
-        .active #dim-bg {
-            display: block;
-        }
-
-    </style>
+    <title>Hassco</title>
+    <link rel="stylesheet" href="main.css" />
 </head>
 <body>
-    <div id="grid" class="grid p-4">
-        <div class="grid-item"><img src="images/card5.png"/></div>
-        <div class="grid-item"><img src="images/card9.png"/></div>
-        <div class="grid-item"><img src="images/card8.png"/></div>
-        <div class="grid-item"><img src="images/card12.png"/></div>
-        <div class="grid-item"><img src="images/card1.png"/></div>
-        <div class="grid-item"><img src="images/card2.png"/></div>
-        <div class="grid-item"><img src="images/card3.png"/></div>
-        <div class="grid-item"><img src="images/card4.png"/></div>
-        <div class="grid-item"><img src="images/card6.png"/></div>
-        <div class="grid-item"><img src="images/card7.png"/></div>
-        <div class="grid-item"><img src="images/card10.png"/></div>
-        <div class="grid-item"><img src="images/card11.png"/></div>
-        <div class="grid-item"><img src="images/card13.png"/></div>
-        <div class="grid-item"><img src="images/card14.png"/></div>
-        <div class="grid-item"><img src="images/card15.png"/></div>
+    <header></header>
+
+    <main>
+        <div class="work-list" id="work-list">
+            <div class="item">
+                <div class="cover">
+                    <img src="images/item1.png" width="238"/>
+                </div>
+                <div class="info">
+                    <div class="description">
+                        <h2 class="title">WARITH MEDICAL AUTHORITY.</h2>
+                        <div class="sub">
+                            <div class="tags">
+                                <span>print</span>
+                                <span>character</span>
+                                <span>linework</span>
+                            </div>
+                            <div class="view">> View case study</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="cover">
+                    <img src="images/item2.png" width="238"/>
+                </div>
+                <div class="info">
+                    <div class="description">
+                        <h2 class="title">WARITH MEDICAL AUTHORITY.</h2>
+                        <div class="sub">
+                            <div class="tags">
+                                <span>print</span>
+                                <span>character</span>
+                                <span>linework</span>
+                            </div>
+                            <div class="view">> View case study</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="cover">
+                    <img src="images/item3.png" width="238"/>
+                </div>
+                <div class="info">
+                    <div class="description">
+                        <h2 class="title">WARITH MEDICAL AUTHORITY.</h2>
+                        <div class="sub">
+                            <div class="tags">
+                                <span>print</span>
+                                <span>character</span>
+                                <span>linework</span>
+                            </div>
+                            <div class="view">> View case study</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item carousel">
+                <div class="cover">
+                    <img src="images/item4.png" width="238"/>
+                    <img src="images/item4-1.jfif" height="315" width="238"/>
+                    <img src="images/item4-2.jfif" height="315" width="238"/>
+                </div>
+                <div class="info">
+                    <div class="description">
+                        <h2 class="title">Wayl Payment.</h2>
+                        <div class="sub">
+                            <div class="tags">
+                                <span>linework</span>
+                                <span>portrait</span>
+                            </div>
+                            <div class="view">> View case study</div>
+                        </div>
+                    </div>
+                    <div class="counter">
+                        <div>1/6</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="cover">
+                    <img src="images/item3.png" width="238"/>
+                </div>
+                <div class="info">
+                    <div class="description">
+                        <h2 class="title">WARITH MEDICAL AUTHORITY.</h2>
+                        <div class="sub">
+                            <div class="tags">
+                                <span>print</span>
+                                <span>character</span>
+                                <span>linework</span>
+                            </div>
+                            <div class="view">> View case study</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="floating-menu">
+        <div class="about-box" id="about-box">
+            <div class="about-top">
+                <div class="avatar"></div>
+                <div class="nav-container">
+                    <nav>
+                        <a class="explore selected">Explore</a>
+                        <a class="about">About me</a>
+                        <a id="contact">Contact</a>
+                        <div class="bubble" id="nav-bubble"></div>
+                    </nav>
+                    <div class="about-id">
+                        <div>
+                            <div>Hassan A. Yassin</div>
+                            <span>Contact</span>
+                        </div>
+                        <button id="close-nav-btn">X</button>
+                    </div>
+                </div>
+            </div>
+            <address>
+                <a href="#">X</a>
+                <a href="#">Instagram</a>
+                <a href="#">Spotify</a>
+                <a href="#">Email</a>
+            </address>
+        </div>
+        <div class="magic"></div>
     </div>
 
-    <div id="dim-bg"></div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" integrity="sha512-aNMyYYxdIxIaot0Y1/PLuEu3eipGCmsEUBrUq+7aVyPGMFH8z0eTP0tkqAvv34fzN6z+201d3T8HPb1svWSKHQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
     <script>
-        var grid = document.getElementById('grid');
-        var bg = document.getElementById('dim-bg');
-        var canvas = document.createElement("canvas");
-        const ctx = canvas.getContext('2d');
-        var style = document.createElement("style");
+        let explore = document.querySelector("#about-box nav a:first-child");
+        let about = document.querySelector("#about-box nav a:nth-child(2)");
 
-        var gap = 76;
-        var width = 380;
-        var itemClass = ".grid-item";
-        var gridDimensions = grid.getBoundingClientRect();
-        var colIndex = 0;
-        // var rowIndex = 0;
-        var colCount = Math.floor(gridDimensions.width / (width + gap));
-        var rowOffsets = Array(colCount).fill(0);
-        var gridWidth = colCount * (width + gap) - gap;
-        grid.style.width = gridWidth + "px";
+        explore.addEventListener("click", moveBubble);
+        about.addEventListener("click", moveBubble);
 
-        grid.querySelectorAll(itemClass).forEach((item, i) => {
-            var left = (colIndex % colCount) * (width + gap) + "px";
-            var top = rowOffsets[colIndex % colCount] + "px";
-
-            item.dataset.left = left;
-            item.dataset.top = top;
-
-            item.style.left = item.dataset.left;
-            item.style.top = item.dataset.top;
-
-            // item.style.left = (colIndex % colCount) * (width + gap) / gridWidth * 100 + "%";
-            // item.style.top = rowOffsets[colIndex % colCount] + "px";
-            var itemDimensions = item.getBoundingClientRect();
-            rowOffsets[colIndex % colCount] += itemDimensions.height + gap;
-            colIndex++;
-
-            var img = item.querySelector("img");
-
-            // Set canvas size to match image dimensions
-            canvas.width = img.width;
-            canvas.height = img.height;
-
-            // Draw the image on the canvas
-            ctx.drawImage(img, 0, 0);
-
-            // Get image pixel data
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-
-            // Count colors
-            const colorCounts = {};
-            let maxCount = 0;
-            let mostUsedColor = '';
-
-            for (let i = 0; i < imageData.length; i += 4) {
-                const r = imageData[i];
-                const g = imageData[i + 1];
-                const b = imageData[i + 2];
-                const a = imageData[i + 3];
-
-                // Skip transparent pixels
-                if (a === 0) continue;
-
-                const color = `rgba(${r},${g},${b}, 0.3)`;
-                colorCounts[color] = (colorCounts[color] || 0) + 1;
-
-                if (colorCounts[color] > maxCount) {
-                    maxCount = colorCounts[color];
-                    mostUsedColor = color;
-                }
-            }
-
-            style.innerText += `.grid-item:hover:nth-child(${i + 1}) { box-shadow: 0 30px 60px 0 ${mostUsedColor}; }\n`;
-            console.log(mostUsedColor);
-        });
-
-        document.body.append(style);
-
-        var animation;
-
-        grid.addEventListener("click", function (e) {
-            var el = e.target;
-
-            while (!el.classList.contains("grid-item") && el.tagName != "BODY") el = el.parentElement;
-
-            if (el.classList.contains("grid-item")) {
-
-                var elDimensions = el.getBoundingClientRect();
-
-                var top = (document.documentElement.clientHeight / 2) - (elDimensions.height / 2) - gridDimensions.y + window.scrollY;
-                var left = (document.documentElement.clientWidth / 2) - (width / 2) - ((document.documentElement.clientWidth - grid.clientWidth) / 2) + window.scrollX;
-
-                animation = anime({
-                    targets: el,
-                    easing: 'spring(1, 320, 40, 0)',
-                    top: top,
-                    left: left,
-                    scale: 2,
-                    zIndex: [1000, 1000],
-                    duration: 500,
-                    
-                });
-
-                el.classList.add("active");
-                document.body.classList.add("active");
-            }
-        });
-
-        bg.addEventListener("click", function (e) {
-            var el = document.querySelector(".grid-item.active");
-
-            animation = anime({
-                targets: el,
-                easing: 'spring(1, 320, 40, 0)',
-                top: el.dataset.top,
-                left: el.dataset.left,
-                scale: 1,
-                zIndex: [1000, 1000],
-                duration: 500,
-            });
-
-            animation.complete = (ani) => ani.animatables.forEach(x => {
-                x.target.style.zIndex = 10;
-                el.classList.remove("active")
-                
-            })
-            
-            // animation?.seek(0);
-            
-            // animation?.reverse();
-            // if (animation.changeCompleted) {
-            //     animation?.restart();
-            // }
-
-            document.body.classList.remove("active");
-        });
-
+        function moveBubble(e) {
+            document.querySelectorAll("#about-box nav .selected").forEach(x => x.classList.remove("selected"));
+            e.target.classList.add("selected");
+        }
     </script>
 </body>
 </html>

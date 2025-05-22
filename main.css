@@ -1,0 +1,273 @@
+:root {
+    --bg-color: #DFDFDC;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    /* font-family: "PP Neue Montreal"; */
+}
+
+body > header {
+    height: 70px;
+}
+
+
+/* ============================= */
+/* ============ NAV ============ */
+/* ============================= */
+
+.floating-menu {
+    position: fixed;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%);
+}
+
+.about-box {
+    background-color: #000;
+    color: #fff;
+    padding: 6px;
+    border-radius: 32px;
+    height: 48px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.about-box.open {
+    height: 160px;
+    border-radius: 24px;
+    padding: 20px;
+}
+
+.about-top {
+    display: flex;
+}
+
+.about-top .avatar {
+    background-image: url(images/avatar.png);
+    background-position: center;
+    background-size: cover;
+    border-radius: 99px;
+    height: 36px;
+    width: 36px;
+}
+
+.about-top .nav-container {
+    transition: all 0.5s ease;
+}
+
+.open .about-top .nav-container {
+    transform: translateY(-50%);
+}
+
+.about-box nav {
+    display: flex;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.about-box nav a {
+    padding: 0 18px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.about-box nav a::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 12px;
+    border-radius: 3px;
+    background-color: #fff;
+    opacity: 0;
+    margin-right: -20px;
+    transition: all 0.3s ease;
+}
+
+.about-box nav a.selected::before {
+    opacity: 1;
+    margin-right: 6px;
+}
+
+.about-box nav .bubble {
+    border-radius: 50px;
+    background: #FFFFFF1F;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    width: 80px;
+    transition: all 0.3s ease;
+}
+
+.about-box nav .explore.selected ~.bubble {
+    width: 102.317px;
+    left: 0;
+}
+
+.about-box nav .about.selected ~.bubble {
+    width: 113.6px;
+    left: 77.14999389648438px;
+}
+
+.about-id {
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-id button {
+    background:#232323;
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    height: 36px;
+    width: 36px;
+    cursor: pointer;
+}
+
+.about-box address {
+    width: 1px;
+    transition: width 0.5s ease;
+}
+
+.about-box.open address {
+    width: auto;
+}
+
+.about-box address a {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    font-style: normal;
+    padding: 0 12px;
+    background-color: #232323;
+    border-radius: 100px;
+    transition: all 0.3s ease 0.2s;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.about-box address a:nth-child(1) {
+    transform: translateY(15px);
+}
+
+.about-box address a:nth-child(2) {
+    transform: translateY(30px);
+}
+
+.about-box address a:nth-child(3) {
+    transform: translateY(45px);
+}
+
+.about-box address a:nth-child(4) {
+    transform: translateY(60px);
+}
+
+.about-box.open address a {
+    transform: translateY(0);
+}
+
+.floating-menu nav, .magic {
+    border: 1px solid #0000000A;
+    border-radius: 10px;
+}
+
+/* ============================ */
+/* =========== GRID =========== */
+/* ============================ */
+
+.work-list {
+    padding: 0 42px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 42px;
+}
+
+.item {
+    /* display: flex; */
+    flex-direction: column;
+}
+
+.item .cover {
+    position: relative;
+}
+
+.item .cover img {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.item:not(.carousel) .cover:hover img,  .item.carousel .cover:hover img:nth-child(2) {
+    transform: translate(10px, -10px);
+    opacity: 1;
+}
+
+.item.carousel .cover:hover img:nth-child(3) {
+    transform: translate(20px, -20px);
+    opacity: 1;
+}
+
+.item .cover img:first-child ~ img {
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.item .info {
+    display: flex;
+    padding-top: 14px;
+}
+
+.item .description {
+    flex-grow: 1;
+}
+
+.item .counter div {
+    padding: 8px 12px;
+    background-color: #0000001A;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.item .title {
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 8px;
+}
+
+.item .cover:hover + .info .tags, .item .cover:hover + .info .view {
+    transform: translateY(-16px);
+}
+
+.item .tags, .item .view {
+    transition: transform 0.2s ease;
+}
+
+.item .sub {
+    height: 16px;
+    overflow: hidden;
+}
+
+.item .tags, .item .view {
+    color: #00000066;
+    font-size: 14px;
+}
+
+.item .tags span::before {
+    content: "#";
+}
